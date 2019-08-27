@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	<mapper namespace="com.baobab.admin.dao.AdminPushMapper">
+		<insert id="pushHistory" parameterType="com.baobab.m.vo.AdminPushVO">
+			insert into admin_push (writer, title, message, push_div, push_date) values (#{writer}, #{title}, #{message}, #{push_div}, sysdate())
+		</insert>
+		<select id="getAllPushList" resultType="com.baobab.m.vo.UserLocationVO">
+			select * from user_location where push_token is not null and push_token != '' group by push_token
+		</select>
+		<select id="adminSelect" parameterType="com.baobab.m.vo.AdminPushVO" resultType="com.baobab.m.vo.AdminPushVO">
+			select * from admin_push where push_div like #{push_div} and (writer like #{writer} or title like #{title}) order by push_date desc
+		</select>
+	</mapper>

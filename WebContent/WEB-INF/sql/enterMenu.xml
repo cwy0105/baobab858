@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	<mapper namespace="com.baobab.m.dao.EnterMenuMapper">
+		<insert id="menuInsert" parameterType="com.baobab.m.vo.CPEnterMenuVO">
+			insert into cp_enter_menu (cp_name, menu_name, price, dis_price, cp_seq) values (#{cp_name}, #{menu_name}, #{price}, #{dis_price}, (select seq_num from cp_info where CP_name = #{cp_name}))
+		</insert>
+		<delete id="menuDel" parameterType="int">
+			delete from cp_enter_menu where cp_seq = #{cp_seq} and seq_num = #{seq_num}
+		</delete>
+		<select id="menuSelect" parameterType="int" resultType="com.baobab.m.vo.CPEnterMenuVO">
+			select * from cp_enter_menu where cp_seq = #{cpSeq}
+		</select>
+		<update id="menuUpdate" parameterType="com.baobab.m.vo.CPEnterMenuVO">
+			update (menu_name, price, dis_price) set cp_enter_menu = (#{menu_name}, #{price}, #{dis_price}) where (seq_num, cp_seq) = (#{seq_num}, #{cp_seq})
+		</update>
+	</mapper>

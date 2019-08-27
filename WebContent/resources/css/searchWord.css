@@ -1,0 +1,57 @@
+#chart {
+	width: 100%;
+	display: block;
+}
+
+#chart div {
+	float: left;
+}
+
+#table {
+	width: 100%;
+	margin-top: 20px;
+	overflow: hidden;
+}
+
+#table h1 {
+	font-size: 2em;
+}
+
+#table div {
+	width: 100%;
+	margin-left: 2.5%;
+}
+
+#table div table {
+	width: 9.5%;
+	margin-top: 15px;
+	float: left;
+	border-collapse: collapse;
+}
+
+#table div table tr th {
+	border: 1px solid black;
+	font-size: 1.2em;
+}
+
+#table div table tr td {
+	border: 1px solid black;
+	font-size: 1em;
+	height: 33px;
+}
+
+#paging {
+	margin-top: 10px;
+}
+
+#paging a {
+	font-size: 1.3em;
+	margin: 0 7px;
+	color: #8C8C8C;
+}
+
+#paging a:hover {
+	text-decoration: underline;
+	color: #FF8224;
+	cursor: pointer;
+}

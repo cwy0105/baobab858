@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	<mapper namespace="com.baobab.m.dao.PokeMapper">
+		<insert id="getPoke" parameterType="com.baobab.m.vo.PokeVO">
+			insert into poke (user_phone, cp_name, cp_address, score, rev_num, poke_date, div_code, cp_seq) values (#{user_phone}, #{cp_name}, #{cp_address}, #{score}, #{rev_num}, sysdate(), #{div_code}, #{cp_seq})
+		</insert>
+		<delete id="delPoke" parameterType="com.baobab.m.vo.PokeVO">
+			delete from poke where user_phone = #{user_phone} and cp_name = #{cp_name} and div_code = #{div_code} and cp_seq = #{cp_seq}
+		</delete>
+		<select id="showPoke" parameterType="string" resultType="com.baobab.m.vo.PokeVO">
+		 	select * from poke where user_phone = #{userPhone} order by poke_date desc
+		</select>
+		<select id="pokeConfirm" parameterType="com.baobab.m.vo.PokeVO" resultType="int">
+			select count(*) from poke where user_phone = #{user_phone} and cp_name = #{cp_name} and div_code = #{div_code} and cp_seq = #{cp_seq}
+		</select>
+		<select id="getNonCPone" parameterType="com.baobab.m.vo.PokeVO" resultType="com.baobab.m.vo.LocalCPInfoVO">
+			select * from non_cp_info where cp_name = #{cp_name} and loc_seq = #{cp_seq}
+		</select>
+		<select id="showMetheFan" parameterType="string" resultType="com.baobab.m.vo.PokeVO">
+			select * from poke where cp_name = (select CP_name from cp_user where email = #{email})
+		</select>
+		<select id="enterNonCp" parameterType="com.baobab.m.vo.PokeVO" resultType="com.baobab.m.vo.NonPCroomVO">
+			(select * from billiard_info where cp_name = #{cp_name} and seq_num = #{cp_seq}) union (select * from karaoke_info where cp_name = #{cp_name} and seq_num = #{cp_seq}) union (select * from pcroom_info where cp_name = #{cp_name} and seq_num = #{cp_seq})
+		</select>
+	</mapper>

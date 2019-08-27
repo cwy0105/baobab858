@@ -1,0 +1,92 @@
+#section h1 {
+	margin: 20px 0;
+	font-size: 30px;
+}
+
+#section h2 {
+	margin-bottom: 20px;
+	font-size: 25px;
+}
+
+#section h3 {
+	font-size: 20px;
+}
+
+#banner {
+	position: relative;
+	width: 600px;
+	height: 265px;
+	top: 50px;
+	margin: 0 auto;
+	margin-left: 230px;
+	padding: 0;
+	overflow: hidden;
+	float: left;
+}
+
+#banner ul {
+	position: absolute;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+#banner ul li {
+	float: left;
+	width: 600px;
+	height: 265px;
+	margin: 0;
+	padding: 0;
+}
+
+#infomation {
+	position: none;
+	width: 50%;
+	padding-top: 15px; 
+	padding-right: 5%; 
+	float: right;
+}
+
+#infomation div {
+	margin-bottom: 16.9px;
+}
+
+#infomation div p, #infomation div b {
+	font-size: 15px;
+}
+
+#second_section {
+	margin-top: 400px;
+}
+
+.menu_section {
+	margin: 50px 0;
+	text-align: center;
+}
+
+.menu_section h1 {
+	font-size: 20px;
+}
+
+.menu_section table {
+	border-collapse: collapse;
+	width: 80%;
+	margin-left: 10%;
+	margin-top: 15px;
+}
+
+.menu_section table tr th, .menu_section table tr td {
+	border: 1px solid #dddddd;
+}
+
+.menu_section table tr th {
+	font-size: 18px;
+}
+
+.menu_section table tr td{
+	font-size: 18px;
+}
+
+.menuImg {
+	float: left;
+}

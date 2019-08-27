@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	<mapper namespace="com.baobab.m.dao.PersonalInfoMapper">
+		<select id="findEmail" parameterType="string" resultType="com.baobab.m.vo.UserAllVO">
+			select email, user_password from user_all where phon_num = #{phoneNum}
+		</select>
+		<select id="findPassword" parameterType="com.baobab.m.vo.UserAllVO" resultType="com.baobab.m.vo.UserAllVO">
+			select * from user_all where email = #{email} and phon_num = #{phon_num}
+		</select>
+		<update id="updatePassword" parameterType="com.baobab.m.vo.UserAllVO">
+			update user_all set user_password = #{user_password} where email = #{email} and phon_num = #{phon_num}
+		</update>
+	</mapper>

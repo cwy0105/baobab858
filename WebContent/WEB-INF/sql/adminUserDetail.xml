@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	<mapper namespace="com.baobab.admin.dao.AdminUserDetailMapper">
+		<select id="loctaionInfo" parameterType="string" resultType="com.baobab.m.vo.UserLocationVO">
+			select * from user_location where user = (select phon_num from user_all where email = #{email})
+		</select>
+		<select id="paymentInfo" parameterType="string" resultType="com.baobab.m.vo.PaymentVO">
+			select * from payment where email = #{email} order by pay_date desc
+		</select>
+		<select id="historyInfo" parameterType="string" resultType="com.baobab.m.vo.UserHistoryVO">
+			select * from user_history where email = #{email} order by change_date desc
+		</select>
+		<select id="callHistoryInfo" parameterType="string" resultType="com.baobab.m.vo.CallHistoryVO">
+			select * from call_history where user_phone = (select phon_num from user_all where email = #{email}) order by call_date desc
+		</select>
+		<select id="pokeInfo" parameterType="string" resultType="com.baobab.m.vo.PokeVO">
+			select * from poke where user_phone = (select phon_num from user_all where email = #{email}) order by poke_date desc
+		</select>
+		<select id="reviewInfo" parameterType="string" resultType="com.baobab.m.vo.ReviewVO">
+			select * from review where userPhoneNum = (select phon_num from user_all where email = #{email}) order by post_date desc
+		</select>
+		
+		<insert id="locationInqu" parameterType="com.baobab.m.vo.LocationInquHistoryVO">
+			insert into location_inqu_history (email, div_code, name, jobclass, department, ip, reason, select_date) values (#{email}, (select div_code from user_all where email = #{email}), (select name from admin_account where id = #{email}), (select job_class from admin_account where id = #{email}), (select department from admin_account where id = #{email}), #{ip}, '회원정보조회', sysdate())
+		</insert>
+	</mapper>

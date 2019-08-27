@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	<mapper namespace="com.baobab.m.dao.SetMenuUploadMapper">
+		<insert id="setMenuSave" parameterType="com.baobab.m.vo.SetMenuVO">
+			insert into set_menu (menu_name, cp_name, menu_price, menu_dis_price, menu_img, menu_detail, cp_seq) values (#{menu_name}, #{cp_name}, #{menu_price}, #{menu_dis_price}, #{menu_img}, #{menu_detail}, #{cp_seq})
+		</insert>
+		<insert id="setMenuInfoSave" parameterType="com.baobab.m.vo.SetMenuInfoVO">
+			insert into set_menu_info (cp_name, set_menu_name, menu, option, ea, cp_seq) values (#{cp_name}, #{set_menu_name}, #{menu}, #{option}, #{ea}, #{cp_seq})
+		</insert>
+		<select id="dubConfirm" parameterType="com.baobab.m.vo.SetMenuVO" resultType="string">
+			select menu_name from set_menu where cp_name = #{cp_name} and menu_name = #{menu_name} and cp_seq = #{cp_seq}
+		</select>
+		<select id="showMetheSetMenu" parameterType="int" resultType="com.baobab.m.vo.SetMenuVO">
+			select * from set_menu where cp_seq = #{cpSeq}
+		</select>
+		<delete id="delSetMenu" parameterType="com.baobab.m.vo.SetMenuVO">
+			delete from set_menu where cp_seq = #{cp_seq} and menu_name = #{menu_name}
+		</delete>
+		<delete id="delSetMenuInfo" parameterType="com.baobab.m.vo.SetMenuInfoVO">
+			delete from set_menu_info where cp_seq = #{cp_seq} and set_menu_name = #{set_menu_name}
+		</delete>
+	</mapper>

@@ -1,0 +1,130 @@
+#main_section div {
+	width: 90%;
+	height: 70vh;
+	margin: 30px 5%;
+}
+
+#main_section div div {
+	width: 90%;
+	margin: 0px 5%;
+}
+
+#main_section div div table {
+	border-collapse: collapse;
+	margin-top: 80px;
+	width: 100%;
+}
+
+tr:hover {
+	background-color: #FF8224;
+	cursor: pointer;
+}
+
+tr:hover th {
+	background-color: white;
+	cursor: context-menu;
+}
+
+tr:hover td {
+	font-weight: bold;
+	color: white;
+}
+
+th {
+	font-size: 18px;
+}
+
+td, th {
+	border: 1px solid #dddddd;
+	padding: 8px;
+	text-align: left;
+}
+
+td a {
+	display: block;
+	color: black;
+}
+
+td p {
+	text-align: center;
+}
+
+#main_section div div div {
+	width: 90%;
+	height: 5vh;
+}
+
+#search {
+	text-align: center;
+}
+
+#search input, #search select {
+	border: 3px solid #FF8224;
+	border-radius: 50px;
+	height: 30px;
+	margin-left: 20px;
+	text-align: center;
+	outline: none;
+}
+
+input[type="text"] {
+	width: 250px;
+}
+
+input[type="button"] {
+	background-color: #FF8224;
+	width: 50px;
+	height: 30px;
+	color: white;
+	cursor: pointer;
+}
+
+input[type="button"]:hover {
+	background-color: white;
+	color: black;
+}
+
+#page_div button, #page_div a {
+	display: inline-block;
+	margin-top: 20px;
+}
+
+#page_div a {
+	margin: 0px 20px;
+	font-size: 15px;
+}
+
+#page_div button {
+	background-color: #FF8224;
+	border: 0px;
+	border-radius: 50%;
+	color: white;
+	width: 30px;
+	height: 30px;
+	font-size: 14px;
+	cursor: pointer;
+	outline: none;
+}
+
+#page_div button:hover {
+	background-color: white;
+	border: 3px solid #FF8224;
+	color: #FF8224;
+}
+
+#search input[type="radio"] {
+	display: none;
+}
+
+#search div label {
+	border: 1px solid #ddd;
+	border-collapse: collapse;
+	border-radius: 23px;
+	width: 30%;
+	margin-left: 14%;
+	height: 70%;
+	font-size: 2em;
+	display: inline-block;
+	float: left;
+	cursor: pointer;
+}

@@ -1,0 +1,23 @@
+#main_section div {
+	margin-top: 35px;
+	margin-left: 10%;
+	width: 80%;
+	margin-bottom: 35px;
+	border: 3px solid #FF8224;
+	padding: 5px;
+}
+
+#main_section p {
+	font-size: 1.2em;
+}
+
+#notiDate {
+	margin-bottom: 30px;
+}
+
+#main_section div p {
+	width: 100%;
+	font-size: 1.5em;
+	text-align: left;
+	white-space: pre-line;
+}

@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	<mapper namespace="com.baobab.m.dao.CPJoinMapper">
+		<insert id="cpUserAllJoin" parameterType="com.baobab.m.vo.UserAllVO">
+			insert into user_all (email, user_password, phon_num, join_date, div_code, push_agree, nickName) values (#{email}, #{user_password}, #{phon_num}, sysdate(), #{div_code}, #{push_agree}, #{email})
+		</insert>
+		
+		<insert id="userHistoryJoin" parameterType="com.baobab.m.vo.UserHistoryVO">
+			insert into user_history (email, change_date, div_code) values (#{email}, sysdate(), #{div_code})
+		</insert>
+		
+		<insert id="cpUserJoin" parameterType="com.baobab.m.vo.CPUserVO">
+			insert into cp_user (email, cp_name, cp_license, cp_license_num, con_date, CP_bankbook_img, bank, account_holder, account_number) values (#{email}, #{cpName}, #{license}, #{cpLicenseNum}, sysdate(), #{cpBankBookImg}, #{bank}, #{account_holder}, #{accountNumber})
+		</insert>
+		
+		<insert id="cpJoin" parameterType="com.baobab.m.vo.CPInfoVO">
+			insert into cp_info (cp_name, cp_phon, cp_zipcode, cp_address, cp_addr_details, cp_kind, cp_type, cp_theme1, cp_theme2, business_start, business_end, parking, close_day, CP_intro, longitude, latitude, cp_div, close_ect, owner_email) values (#{CP_name}, #{CP_phon}, #{CP_zipcode}, #{CP_address}, #{CP_addr_details}, #{CP_kind}, #{CP_type}, #{CP_Theme1}, #{CP_Theme2}, #{Business_start}, #{Business_end}, #{parking}, #{close_day}, #{CP_intro}, #{longitude}, #{latitude}, #{cp_div}, #{close_ect}, #{owner_email})
+		</insert>
+		
+		<insert id="cpHistoryJoin" parameterType="string">
+			insert into cp_history (cp_name) values (#{cpName})
+		</insert>
+		
+		<update id="cpUpdate" parameterType="com.baobab.m.vo.CPInfoVO">
+			update cp_info set cp_name = #{CP_name}, cp_phon = #{CP_phon}, cp_zipcode = #{CP_zipcode}, cp_address = #{CP_address}, cp_addr_details = #{CP_addr_details}, cp_kind = #{CP_kind}, cp_type = #{CP_type}, cp_theme1 = #{CP_Theme1}, cp_theme2 = #{CP_Theme2}, business_start = #{Business_start}, business_end = #{Business_end}, parking = #{parking}, close_day = #{close_day}, CP_intro = #{CP_intro}, longitude = #{longitude}, latitude = #{latitude} , close_ect = #{close_ect} where seq_num = #{seq_num} 
+		</update>
+		
+		<update id="cpUserUpdate" parameterType="com.baobab.m.vo.CPUserVO">
+			update cp_user set CP_name = #{cpName} where email = #{email}
+		</update>
+		
+		<update id="divCodeChange" parameterType="string">
+			update user_all set div_code = 'c-01-01' where email = #{email}
+		</update>
+		
+		<select id="dupName" parameterType="string" resultType="string">
+			select CP_name from cp_info where CP_name = #{cpName}
+		</select>
+		
+		<select id="getMenu" parameterType="com.baobab.m.vo.MenuVO" resultType="com.baobab.m.vo.MenuVO">
+			select * from menu where cp_seq = #{cp_seq}
+		</select>
+		
+		<update id="updateMenu" parameterType="com.baobab.m.vo.MenuVO">
+			update menu set CP_name = #{cp_name}, menu_img = #{menu_img} where menu_name = #{menu_name} and cp_seq = #{cp_seq}
+		</update>
+		
+		<update id="setInfoUpdate" parameterType="com.baobab.m.vo.SetMenuInfoVO">
+			update set_menu_info set cp_name = #{cp_name} where cp_seq = #{cpSeq}
+		</update>
+		
+		<select id="getSetMenu" parameterType="com.baobab.m.vo.SetMenuVO" resultType="com.baobab.m.vo.SetMenuVO">
+			select * from set_menu where cp_seq = #{cpSeq}
+		</select>
+		
+		<update id="updateSetMenu" parameterType="com.baobab.m.vo.SetMenuVO">
+			update set_menu set cp_name = #{cp_name}, menu_img = #{menu_img} where cp_seq = #{cpSeq} and menu_name = #{menu_name}
+		</update>
+		
+		<select id="getReview" parameterType="com.baobab.m.vo.ReviewVO" resultType="com.baobab.m.vo.ReviewVO">
+			select * from review where cp_seq = #{cp_seq}
+		</select>
+		
+		<update id="updateReview" parameterType="com.baobab.m.vo.ReviewVO">
+			update review set CP_name = #{CP_name}, img1 = #{img1}, img2 = #{img2}, img3 = #{img3}, img4 = #{img4} where cp_seq = #{cp_seq} and div_code = 'our'
+		</update>
+		
+		<select id="getCpInfo" parameterType="com.baobab.m.vo.CPInfoVO" resultType="com.baobab.m.vo.CPInfoVO">
+			select * from cp_info where seq_num = #{seq_num}
+		</select>
+		
+		<update id="updateBasket" parameterType="com.baobab.m.vo.BasketVO">
+			update basket set cp_name = #{cp_name} where cp_seq = #{cp_seq}
+		</update>
+		
+		<update id="updatePayment" parameterType="com.baobab.m.vo.PaymentVO">
+			update payment set cp_name = #{cp_name} where cp_seq = #{cp_seq}
+		</update>
+		
+		<update id="updatePoke" parameterType="com.baobab.m.vo.PokeVO">
+			update poke set cp_name = #{cp_name} where cp_seq = #{cp_seq}
+		</update>
+		
+		<select id="getCpUserInfo" parameterType="string" resultType="com.baobab.m.vo.CPUserVO">
+			select * from cp_user where email = #{email}
+		</select>
+		
+		<select id="cpUserInfo" parameterType="string" resultType="com.baobab.m.vo.CPUseVO">
+			select * from cp_user where email = #{email}
+		</select>
+		
+		<update id="changeCpUser" parameterType="com.baobab.m.vo.CPUserVO">
+			update cp_user licenseNum = #{licenseNum}, accHolder = #{accHolder}, bank = #{bank}, accNum = #{accNum}, license = #{license}, cpBankBookImg = #{cpBankBookImg} where email = #{email}
+		</update>
+		
+	</mapper>

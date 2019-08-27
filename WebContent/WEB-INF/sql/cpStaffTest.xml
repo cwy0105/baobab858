@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.baobab.m.dao.CpStaffTest">
+
+	<select id="testCpUser" resultType="com.baobab.m.vo.CPUserVO">
+		select * from cp_user
+	</select>
+	<select id="testUserAll" resultType="com.baobab.m.vo.UserAllVO">
+		select * from user_all where div_code = 'c-01-01'
+	</select>
+	<insert id="testInsert" parameterType="com.baobab.m.vo.CpStaffVO">
+		insert into cpStaff (email, staffPhone, staffName, divCode, cpSeq, registDate, status) values (#{email}, #{staffPhone}, #{staffName}, #{divCode}, (select seq_num from cp_info where CP_name = (select CP_name from cp_user where email = #{email})), #{registDate}, '등록')
+	</insert>
+
+</mapper>

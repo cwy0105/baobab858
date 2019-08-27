@@ -1,0 +1,152 @@
+* {
+	margin: 0;
+	padding: 0;
+	font-size: 12px;
+	text-decoration: none;
+	list-style: none;
+}
+
+#header {
+	width: 100%;
+	overflow: hidden;
+}
+
+#header>ul>li {
+	width: 14.285%;
+	background-color: #FF8224;
+	text-align: center;
+	float: left;
+}
+
+#header>ul>li>a {
+	text-align: center;
+	color: white;
+	display: block;
+	font-size: 20px;
+	padding: 14px 16px;
+}
+
+#header>ul>li:hover {
+	background-color: #FFCA6C;
+}
+
+#header>ul>li:hover a {
+	color: black;
+}
+
+#header li ul {
+	display: none;
+	float: left;
+	height: auto;
+	padding: 0px;
+	margin: 0px;
+	position: absolute;
+	background-color: #FFCA6C;
+	width: 14.285%;
+}
+
+#header>ul>li:hover ul {
+	display: block;
+}
+
+#header>ul li>ul li:hover {
+	background-color: #FF8224;
+}
+
+#header>ul li>ul li:hover a {
+	color: white;
+}
+
+.small_menu {
+	display: block;
+	font-size: 20px;
+	padding: 14px 16px;
+}
+
+#section {
+	text-align: center;
+}
+
+#section>div {
+	float: left;
+}
+
+#article {
+	width: 350px;
+	height: 900px;
+	margin-left: 30px;
+	display: block;
+}
+
+#main_article {
+	width: 100%;
+	height: 300px;
+	margin-top: 50px;
+	display: block;
+	overflow: hidden;
+	background-color: #EAEAEA;
+	border: 1px solid white;
+	border-radius: 30px;
+}
+
+#main_article>div>a>img {
+	width: 300px;
+	height: 71.929px;
+	margin-top: 30px;
+}
+
+#admin_session * {
+	margin-top: 15px;
+}
+
+#admin_session h1 {
+	font-size: 2em;
+}
+
+#admin_session h3 {
+	font-size: 1.5em;
+}
+
+#admin_session p {
+	font-size: 1.3em;
+}
+
+#sub_article {
+	width: 100%;
+	height: 400px;
+	margin-top: 50px;
+	display: block;
+	overflow: hidden;
+	background-color: #EAEAEA;
+	border-radius: 30px;
+}
+
+#sub_article>h1 {
+	margin-top: 30px;
+	font-size: 30px;
+}
+
+#sub_article>div {
+	margin-top: 10px;
+	height: 290px;
+	text-align: center;
+}
+
+.history {
+	font-size: 15px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+#main_section {
+	width: 70%;
+	height: 85vh;
+	margin-top: 50px;
+	margin-left: 0px;
+	display: block;
+}
+
+#main_section>h1 {
+	margin-top: 30px;
+	font-size: 40px;
+}

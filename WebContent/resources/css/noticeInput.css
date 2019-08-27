@@ -1,0 +1,63 @@
+#main_section>form {
+	width: 100%;
+	display: block;
+}
+
+#main_section>form input[type="text"] {
+	width: 49%;
+	height: 20px;
+}
+
+#main_section>form textarea {
+	width: 60%;
+	height: 50vh;
+}
+
+#main_section>form input, #main_section>form textarea {
+	margin-top: 50px;
+	margin-left: 20%;
+	float: left;
+	display: block;
+}
+
+#main_section>form select {
+	width: 10%;
+	height: 24px;
+	margin-left: 1%;
+	margin-top: 50px;
+	float: left;
+	display: block;
+}
+
+#main_section>form span {
+	position: absolute;
+	bottom: 18.5vh;
+	right: 24.35%;
+}
+
+#main_section>form input[type="button"] {
+	width: 10%;
+	height: 3vh;
+	margin-top: 25px;
+	margin-left: 45%;
+	background-color: #6799FF;
+	color: white;
+	font-size: 1.5em;
+	border: 0px;
+	border-radius: 30px;
+	outline: none;
+}
+
+#main_section>form input[type="button"]:hover {
+	border: 3px solid #6799FF;
+	background-color: white;
+	color: #6799FF;
+	cursor: pointer;
+}
+
+#counter {
+	background: rgba(255, 0, 0, 0.5);
+	border-radius: 0.5em;
+	padding: 0 .5em 0 .5em;
+	font-size: 1em;
+}

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	<mapper namespace="com.baobab.admin.dao.AdminCodeChangeMapper">
+		<update id="codeChange" parameterType="com.baobab.m.vo.UserAllVO">
+			update user_all set div_code = #{div_code} where email = #{email}
+		</update>
+		<insert id="insertHistory" parameterType="com.baobab.m.vo.UserAllVO">
+			insert into user_history (email, div_code, change_date) values (#{email}, #{div_code}, sysdate())
+		</insert>
+	</mapper>

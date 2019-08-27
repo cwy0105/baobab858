@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.baobab.m.dao.CpStaffMapper">
+
+	<select id="staffSearch" parameterType="com.baobab.m.vo.SearchVO" resultType="com.baobab.m.vo.UserAllVO">
+		select * from user_all where (email like #{word} or phon_num like #{word}) and div_code = 'u-01-01' and email not in (select email from cpStaff where cpSeq = #{count})
+	</select>
+	
+	<select id="getStaffs" parameterType="int" resultType="com.baobab.m.vo.CpStaffVO">
+		select * from cpStaff where cpSeq = #{cpSeq} order by divCode
+	</select>
+	
+	<update id="updateStaff" parameterType="com.baobab.m.vo.CpStaffVO">
+		update cpStaff set staffName = #{staffName}, staffGender = #{staffGender}, divCode = #{divCode} where seqNum = #{seqNum}
+	</update>
+	
+	<insert id="staffInfoInsert" parameterType="com.baobab.m.vo.CpStaffVO">
+		insert into cpStaff (email, staffPhone, staffName, staffGender, divCode, cpSeq, registDate, status) values (#{email}, #{staffPhone}, #{staffName}, #{staffGender}, #{divCode}, #{cpSeq}, sysdate(), '등록')
+	</insert>
+	
+	<insert id="staffHistoryJoin" parameterType="com.baobab.m.vo.UserHistoryVO">
+		insert into user_history (email, div_code, change_date) values (#{email}, #{div_code}, sysdate())
+	</insert>
+	
+	<update id="userChangeToStaff" parameterType="com.baobab.m.vo.UserAllVO">
+		update user_all set div_code = #{div_code} where email = #{email}
+	</update>
+
+	<update id="couHistoryStatusChange" parameterType="string">
+		update coupon_history set status = '사용' where serial_num = #{serial_num}
+	</update>
+	
+	<update id="cpCouponScan" parameterType="string">
+		update coupon_cp set use_ea = use_ea + 1 where serial_num = #{serial_num}
+	</update>
+	
+	<delete id="userCouponScan" parameterType="string">
+		delete from coupon_user where serial_num = #{serial_num}
+	</delete>
+
+	<select id="scanCoupon" parameterType="com.baobab.m.vo.CpStaffVO" resultType="com.baobab.m.vo.CpStaffVO">
+		select * from cpStaff where email = #{email} and cpSeq = #{cpSeq}
+	</select>
+	
+	<select id="scanCouponHistory" parameterType="com.baobab.m.vo.CouponHistoryVO" resultType="com.baobab.m.vo.CouponUserVO">
+		select * from coupon_user where serial_num = #{serial_num} and email = #{dl_user_email}
+	</select>
+	
+	<select id="userLocationEmail" parameterType="string" resultType="com.baobab.m.vo.UserLocationVO">
+		select * from user_location where user = (select phon_num from user_all where email = #{user})
+	</select>
+	
+<!-- 	<update id="StaffCancel2" parameterType=""> -->
+<!-- 		update user_all, user_history, cpStaff set div_code = (select * from user_all, user_history where div_code = 'u-01-01'), (select * from cpStaff where divCode = 'u-01-01') where (select div_code as from user_all, user_history) and (select divCode from cpStaff -->
+<!-- 	</update> -->
+	
+	<update id="staffCancelUser" parameterType="string">
+		update user_all set div_code = 'u-01-01' where email = #{email}
+	</update>
+	
+	<delete id="staffCancel" parameterType="com.baobab.m.vo.CpStaffVO">
+		delete from cpStaff where cpSeq = #{cpSeq} and email = #{email}
+	</delete>
+	
+	<insert id="staffCancelHistory" parameterType="com.baobab.m.vo.UserHistoryVO">
+		insert into user_history (email, div_code, change_date) values (#{email}, 'u-01-01', sysdate())
+	</insert>
+	
+	<select id="usedCoupon" parameterType="string" resultType="com.baobab.m.vo.CouponHistoryVO">
+		select * from coupon_history where status = '사용' and cp_seq = (select cpSeq from cpStaff where email = #{email}) order by cur_date desc
+	</select>
+	
+	<select id="scanCouponPush" parameterType="int" resultType="com.baobab.m.vo.UserLocationVO">
+		select ul.* from user_all as ua join user_location as ul on ul.user = ua.phon_num left join cpStaff as cs on ua.email = cs.email where ua.push_agree = 'o' and cs.cpSeq = #{cpSeq}
+	</select>
+	
+	
+
+</mapper>

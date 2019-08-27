@@ -1,0 +1,45 @@
+#item {
+	width: 100%;
+	height: 75%;
+	margin-top: 30px;
+	float: left;
+	display: block;
+}
+
+#item>div {
+	width: 100%;
+	height: 50%;
+}
+
+#item>div div {
+	width: 18.7%;
+	height: 80%;
+	float: left;
+	border-radius: 50%;
+	border: 10px solid #FF8224;
+	margin-top: 30px;
+	margin-left: 9.9%;
+	display: inline-block;
+	text-align: center;
+}
+
+#item>div div h1 {
+	font-size: 35px;
+	margin-top: 35px;
+	margin-bottom: 30px;
+}
+
+#item>div div p {
+	font-size: 25px;
+}
+
+#clock {
+	border: 0px;
+	margin-top: 15px;
+	font-size: 25px;
+	text-align: center;
+}
+
+#clock:focus {
+	outline: none;
+}

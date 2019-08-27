@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	<mapper namespace="com.baobab.admin.dao.AdminVisitantMapper">
+		<select id="visitants" parameterType="com.baobab.m.vo.AdminVisitantVO" resultType="com.baobab.m.vo.AdminVisitantVO">
+			<![CDATA[select vh.*, (select email from user_all where vh.user_phone = phon_num group by email) as email, (select div_code from user_all where vh.user_phone = phon_num group by email) as div_code, (select count(*) from visitant_history where user_phone = vh.user_phone group by user_phone) as cnt from visitant_history as vh, user_all as ua where (vh.user_phone like #{user_phone} or ua.email like #{email}) and ua.div_code like #{div_code} and vh.visit_date >= #{startDate} and vh.visit_date <= #{endDate} and seq_num <= #{seq_num} group by seq_num order by seq_num desc]]>
+		</select>
+		<select id="visitant" parameterType="com.baobab.m.vo.AdminVisitantVO" resultType="com.baobab.m.vo.AdminVisitantVO">
+			<![CDATA[select max(seq_num) as seq_num, vh.user_phone, max(visit_date) as visit_date, (select email from user_all where vh.user_phone = phon_num group by email) as email, (select div_code from user_all where vh.user_phone = phon_num group by email) as div_code, (select count(*) from visitant_history where user_phone = vh.user_phone group by user_phone) as cnt from visitant_history as vh, user_all as ua where (vh.user_phone like #{user_phone} or ua.email like #{email}) and ua.div_code like #{div_code} and vh.visit_date >= #{startDate} and vh.visit_date <= #{endDate} and seq_num <= #{seq_num} group by user_phone order by seq_num desc]]>
+		</select>
+	</mapper>

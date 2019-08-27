@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.baobab.m.dao.CouponUserMapper"> 
+	
+	<insert id="insertCouponUser" parameterType="com.baobab.m.vo.CouponUserVO">
+		insert into coupon_user (serial_num, email, cp_seq, cp_name, cou_title, cou_intro, period, dl_date) values (#{serial_num}, #{email}, #{cp_seq}, #{cp_name}, #{cou_title}, #{cou_intro}, (date_add(sysdate(), INTERVAL (select couponPeriodUser from updated_version) DAY)), sysdate())               
+	</insert>
+	
+	<insert id="insertCouponHistory" parameterType="com.baobab.m.vo.CouponHistoryVO">
+		insert into coupon_history (serial_num, cp_seq, dl_user_email, status, cur_date, title, cp_name, option) values (#{serial_num}, #{cp_seq}, #{dl_user_email}, '미사용', sysdate(), #{title}, #{cp_name}, #{option})
+	</insert>
+	
+	<select id="userCouponEa" parameterType="string" resultType="com.baobab.m.vo.CouponUserVO">
+		select * from coupon_user where email = #{email}
+	</select>
+	
+	<!-- 중복처리 -->
+	<select id="userCouponDup" parameterType="com.baobab.m.vo.CouponUserVO" resultType="com.baobab.m.vo.CouponUserVO">
+		select * from coupon_user where serial_num = #{serial_num} and email = #{email}
+	</select>
+	
+	<select id="getUserCoupon" parameterType="string" resultType="com.baobab.m.vo.CouponUserVO">
+		select * from coupon_user where email = #{email}
+	</select>
+	
+	<update id="getCouponDlUserEa" parameterType="com.baobab.m.vo.CouponCpVO">
+		update coupon_cp set dl_user_ea = dl_user_ea + 1 where serial_num = #{serial_num}
+	</update>
+	
+	<!-- 쿠폰 유효기간 만료시 소멸 -->
+	<delete id="userCouponExpiry">
+		<![CDATA[delete from coupon_user where period < sysdate()]]>
+	</delete>
+	
+	<select id="usedCouponHistory" parameterType="string" resultType="com.baobab.m.vo.CouponHistoryVO">
+		select * from coupon_history where dl_user_email = #{dl_user_email} and status = '사용' order by cur_date desc
+	</select>
+	
+</mapper>

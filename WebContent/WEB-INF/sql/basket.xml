@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	<mapper namespace="com.baobab.m.dao.BasketMapper">
+		<select id="confRepetition" parameterType="com.baobab.m.vo.BasketVO" resultType="int">
+			select seq_num from basket where email = #{email} and cp_name = #{cp_name} and cp_seq = #{cp_seq} and menu_name = #{menu_name}
+		</select>
+		<insert id="inBasket" parameterType="com.baobab.m.vo.BasketVO">
+			insert into basket (email, cp_name, cp_seq, menu_name, option, ea, menu_pay, dis_price, date) values (#{email}, #{cp_name}, #{cp_seq}, #{menu_name}, #{option}, #{ea}, #{menu_pay}, #{dis_price}, sysdate())
+		</insert>
+		<update id="upBasket" parameterType="com.baobab.m.vo.BasketVO">
+			update basket set ea = #{ea}, dis_price = #{dis_price}, date = sysdate() where seq_num = #{seq_num}
+		</update>
+		<delete id="delBasket" parameterType="com.baobab.m.vo.BasketVO">
+			delete from basket where email = #{email} and cp_name = #{cp_name} and cp_seq = #{cp_seq}
+		</delete>
+		
+		<select id="basketList" parameterType="com.baobab.m.vo.BasketVO" resultType="com.baobab.m.vo.BasketVO">
+			select email, cp_name as cp_name, cp_seq as cp_seq, menu_name as menu_name, option, ea, sum(menu_pay) as menu_pay, sum(dis_price) as dis_price, date, seq_num as seq_num from basket where email = #{email} group by cp_name;
+		</select>
+		
+		<select id="basCpInfo" parameterType="com.baobab.m.vo.BasketVO" resultType="com.baobab.m.vo.CPInfoVO">
+			select * from cp_info where CP_name = #{cp_name} and seq_num = #{cp_seq}
+		</select>
+		<select id="basDetailInfo" parameterType="com.baobab.m.vo.BasketVO" resultType="com.baobab.m.vo.BasketVO">
+			select * from basket where email = #{email} and cp_name = #{cp_name} and cp_seq = #{cp_seq}
+		</select>
+	</mapper>

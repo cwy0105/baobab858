@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	<mapper namespace="com.baobab.admin.dao.AdminCPMapper">
+		<select id="search" parameterType="com.baobab.m.vo.SearchVO" resultType="com.baobab.m.vo.CPInfoVO">
+			select ci.* from cp_info as ci join cp_user as cu on ci.CP_name = cu.CP_name where (cu.email like #{word} or ci.CP_name like #{word} or  ci.CP_address like #{word} or ci.CP_addr_details like #{word} or ci.CP_phon like #{word}) and ci.CP_kind like #{selectItem} order by ci.seq_num desc
+		</select>
+	</mapper>

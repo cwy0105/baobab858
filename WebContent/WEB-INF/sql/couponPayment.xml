@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.baobab.m.dao.CouPaymentMapper">
+	<insert id="couPayInfoInsert" parameterType="com.baobab.m.vo.CouponPaymentVO">
+		insert into coupon_payment (goods, disPrice, orderNum, email, userPhone, status, cpSeq, buy_date) values (#{goods}, #{disPrice}, #{orderNum}, #{email}, #{userPhone}, #{status}, #{cpSeq}, sysdate())
+	</insert>
+	<select id="couPaySelect" parameterType="int" resultType="com.baobab.m.vo.CouponPaymentVO">
+		select * from coupon_payment where cpSeq = #{cpSeq} and status = '승인완료' order by buy_date desc
+	</select>
+	
+	<update id="couTidUpdate" parameterType="com.baobab.m.vo.CouponPaymentVO">
+		update coupon_payment set tid = #{tid}, status = '승인완료'  where orderNum = #{orderNum}
+	</update>
+</mapper>

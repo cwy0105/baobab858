@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	<mapper namespace="com.baobab.m.dao.PaymentMapper">
+		<insert id="payInfoInsert" parameterType="com.baobab.m.vo.PaymentVO">
+			insert into payment (email, user_phone, order_num, cp_name, cp_seq, menus, goods, total_price, total_dis_price, status, pay_date, used, prices, owner_receipt) values (#{email}, #{user_phone}, #{order_num}, #{cp_name}, #{cp_seq}, #{menus}, #{goods}, #{total_price}, #{total_dis_price}, #{status}, sysdate(), '미사용', #{prices}, '대기')
+		</insert>
+		<update id="statusChange" parameterType="com.baobab.m.vo.PaymentVO">
+			update payment set status = #{status}, pay_date = sysdate() where order_num = #{order_num}
+		</update>
+		<select id="payAllSelect" parameterType="com.baobab.m.vo.PaymentVO" resultType="com.baobab.m.vo.PaymentVO">
+			select * from payment where email = #{email} and used like #{used} and (status = '00' or status = '02') order by pay_date desc
+		</select>
+		<select id="payOneSelect" parameterType="com.baobab.m.vo.PaymentVO" resultType="com.baobab.m.vo.PaymentVO">
+			select * from payment where email = #{email} and order_num = #{order_num}
+		</select>
+		<delete id="delPayInfo" parameterType="com.baobab.m.vo.PaymentVO">
+			delete from payment where email = #{email} and order_num = #{order_num}
+		</delete>
+		<update id="usedUpdate" parameterType="com.baobab.m.vo.PaymentVO">
+			update payment set used = '사용완료', use_date = sysdate() where order_num = #{order_num}
+		</update>
+		<select id="cpAllSelect" parameterType="com.baobab.m.vo.PaymentVO" resultType="com.baobab.m.vo.PaymentVO">
+			select * from payment where cp_name = (select CP_name from cp_user where email = #{email}) and used like #{used} and (status = '00' or status = '02') order by pay_date desc
+		</select>
+		<select id="payDetail" parameterType="com.baobab.m.vo.PaymentVO" resultType="com.baobab.m.vo.PaymentVO">
+			select * from payment where order_num = #{order_num}
+		</select>
+		<update id="receiptChange" parameterType="com.baobab.m.vo.PaymentVO">
+			update payment set owner_receipt = '완료' where order_num = #{order_num}
+		</update>
+		<select id="useCheck" parameterType="string" resultType="string">
+			select owner_receipt from payment where order_num = #{orderNum}
+		</select>
+		<update id="tidUpdate" parameterType="com.baobab.m.vo.PaymentVO">
+			update payment set tid = #{tid} where order_num = #{order_num}
+		</update>
+		<update id="payCancel" parameterType="com.baobab.m.vo.PaymentVO">
+			update payment set status = '취소', cancel_date = sysdate() where order_num = #{order_num} and tid = #{tid}
+		</update>
+		<select id="payCurDate" parameterType="string" resultType="com.baobab.m.vo.PaymentVO">
+			select * from payment where cp_name = (select CP_name from cp_user where email = #{email}) and date(pay_date) = curdate()
+		</select>
+		<select id="cancelCurDate" parameterType="string" resultType="com.baobab.m.vo.PaymentVO">
+			select * from payment where cp_name = (select CP_name from cp_user where email = #{email}) and date(cancel_date) = curdate()
+		</select>
+		
+		<select id="customerPush" parameterType="string" resultType="com.baobab.m.vo.UserLocationVO">
+			select * from user_location where user = (select phon_num from user_all where email = #{user})
+		</select>
+		<select id="cpUserPush" parameterType="int" resultType="com.baobab.m.vo.UserLocationVO">
+			select * from user_location where user = (select phon_num from user_all where email = (select email from cp_user where CP_name = (select CP_name from cp_info where seq_num = #{seq})))
+		</select>
+	</mapper>

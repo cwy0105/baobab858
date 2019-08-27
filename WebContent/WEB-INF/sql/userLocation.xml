@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	<mapper namespace="com.baobab.m.dao.UserLocationMapper">
+		<insert id="firstLocation" parameterType="com.baobab.m.vo.UserLocationVO">
+			insert into user_location (user, longitude, latitude, addr, location_date, push_token) values (#{user}, #{longitude}, #{latitude}, #{addr}, sysdate(), #{push_token})
+		</insert>
+		<select id="selectLocation" parameterType="com.baobab.m.vo.UserLocationVO" resultType="com.baobab.m.vo.UserLocationVO">
+			select * from user_location where user = #{user}
+		</select>
+		<update id="updateLocation" parameterType="com.baobab.m.vo.UserLocationVO">
+			update user_location set longitude = #{longitude}, latitude = #{latitude}, addr = #{addr}, push_token = #{push_token}, location_date = sysdate() where user = #{user}
+		</update>
+		<select id="pokeSelect" parameterType="com.baobab.m.vo.PokeVO" resultType="com.baobab.m.vo.CPInfoVO">
+			select * from cp_info where CP_name = #{cp_name} and concat(CP_address,' ',CP_addr_details) = #{cp_address}
+		</select>
+		<select id="reviewSelect" parameterType="com.baobab.m.vo.ReviewVO" resultType="com.baobab.m.vo.CPInfoVO">
+			select * from cp_info where seq_num = #{cp_seq}
+		</select>
+		<select id="callNonSelect" parameterType="com.baobab.m.vo.CallHistoryVO" resultType="com.baobab.m.vo.LocalCPInfoVO">
+			select * from non_cp_info where cp_name = #{cp_name} and road_addr = #{cp_address} or local_addr = #{cp_address} and tel = #{cp_phone}
+		</select>
+		<select id="reviewNonSelect" parameterType="com.baobab.m.vo.ReviewVO" resultType="com.baobab.m.vo.LocalCPInfoVO">
+			select * from non_cp_info where loc_seq = #{cp_seq}
+		</select>
+		
+		<insert id="locationLog" parameterType="com.baobab.m.vo.LocationLogVO">
+			insert into location_log (user, root, service, use_date, third_person) values (#{user}, #{root}, #{service}, sysdate(), #{third_person})
+		</insert>
+	</mapper>

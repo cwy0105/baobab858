@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	<mapper namespace="com.baobab.m.dao.AddrConversionMapper">
+		<select id="getList" resultType="com.baobab.m.vo.NonBilliardVO">
+			select * from karaoke_info
+		</select>
+		<update id="updateGeo" parameterType="com.baobab.m.vo.NonBilliardVO">
+			update karaoke_info set latitude = #{latitude}, longitude = #{longitude} where seq_num = #{seq_num}
+		</update>
+	</mapper>

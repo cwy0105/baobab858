@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	<mapper namespace="com.baobab.admin.dao.AdminCPDetailMapper">
+		<select id="cpInfo" parameterType="string" resultType="com.baobab.m.vo.CPInfoVO">
+			select * from cp_info where CP_name = #{cpName}
+		</select>
+		<select id="poke" parameterType="string" resultType="com.baobab.m.vo.PokeVO">
+			select * from poke where cp_name = #{cpName} and div_code = 'our'
+		</select>
+		<select id="setMenu" parameterType="string" resultType="com.baobab.m.vo.SetMenuVO">
+			select * from set_menu where cp_name = #{cpName}
+		</select>
+		<select id="setInfo" parameterType="string" resultType="com.baobab.m.vo.SetMenuInfoVO">
+			select * from set_menu_info where cp_name = #{cpName}
+		</select>
+		<select id="menu" parameterType="string" resultType="com.baobab.m.vo.MenuVO">
+			select * from menu where CP_name = #{cpName}
+		</select>
+	</mapper>

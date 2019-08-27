@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	<mapper namespace="com.baobab.m.dao.ReviewMapper">
+		<insert id="ourReview" parameterType="com.baobab.m.vo.ReviewVO">
+			insert into review (email, score, CP_name, img1, img2, img3, img4, review_pwd, userPhoneNum, text, post_date, cp_seq, div_code, nickName, profile) values (#{email}, #{score}, #{CP_name}, #{img1}, #{img2}, #{img3}, #{img4}, #{review_pwd}, #{userPhoneNum}, #{text}, sysdate(), #{cp_seq}, #{div_code}, #{nickName}, #{profile})
+		</insert>
+		<select id="firstReview" parameterType="com.baobab.m.vo.ReviewVO" resultType="com.baobab.m.vo.ReviewVO">
+			select * from review where CP_name = #{CP_name} and cp_seq = #{cp_seq} order by post_date desc limit 10
+		</select>
+		<select id="moreReview" parameterType="com.baobab.m.vo.ReviewVO" resultType="com.baobab.m.vo.ReviewVO">
+			select * from review where CP_name = #{CP_name} and cp_seq = #{cp_seq} order by post_date desc limit 20 offset 10
+		</select>
+		<select id="allReview" parameterType="com.baobab.m.vo.ReviewVO" resultType="com.baobab.m.vo.ReviewVO">
+			select * from review where CP_name = #{CP_name} and cp_seq = #{cp_seq} order by post_date desc limit 20 offset #{revCount}
+		</select>
+		<select id="myReview" parameterType="com.baobab.m.vo.ReviewVO" resultType="com.baobab.m.vo.ReviewVO">
+			select * from review where userPhoneNum = #{userPhoneNum} order by post_date desc limit 20 offset #{revCount}
+		</select>
+		<delete id="delReview" parameterType="com.baobab.m.vo.ReviewVO">
+			delete from review where userPhoneNum = #{userPhoneNum} and CP_name = #{CP_name} and review_num = #{review_num}
+		</delete>
+		<select id="selectOneRev" parameterType="int" resultType="com.baobab.m.vo.ReviewVO">
+			select * from review where review_num = #{review_num}
+		</select>
+		<update id="reviewCount" parameterType="com.baobab.m.vo.ReviewVO">
+			update cp_info set CP_rev_num = (select count(*) from review where cp_name = #{CP_name}) where CP_name = #{CP_name} and seq_num = #{cp_seq}
+		</update>
+		<update id="gradeCalcu" parameterType="com.baobab.m.vo.ReviewVO">
+			update cp_info set CP_rev_grade = cast((select sum(score) from review where CP_name = #{CP_name}) / (select count(*) from review where CP_name = #{CP_name}) as int) where CP_name = #{CP_name} and seq_num = #{cp_seq} 
+		</update>
+		<update id="nonReviewCount" parameterType="com.baobab.m.vo.ReviewVO">
+			update non_cp_info set rev_num = (select count(*) from review where cp_name = #{CP_name}) where CP_name = #{CP_name} and loc_seq = #{cp_seq}
+		</update>
+		<update id="nonGradeCalcu" parameterType="com.baobab.m.vo.ReviewVO">
+			update non_cp_info set rev_grade = cast((select sum(score) from review where CP_name = #{CP_name}) / (select count(*) from review where CP_name = #{CP_name}) as int) where CP_name = #{CP_name} and loc_seq = #{cp_seq} 
+		</update>
+		<select id="allImages" parameterType="com.baobab.m.vo.ReviewVO" resultType="com.baobab.m.vo.ReviewVO">
+			select img1, img2, img3, img4 from review where not(img1 = '이미지없음' and img2 = '이미지없음' and img3 = '이미지없음' and img4 = '이미지없음') and CP_name = #{CP_name} and cp_seq = #{cp_seq} order by post_date desc;
+		</select>
+		<select id="enterSelect" parameterType="com.baobab.m.vo.ReviewVO" resultType="com.baobab.m.vo.NonPCroomVO">
+			(select * from billiard_info where cp_name = #{CP_name} and seq_num = #{cp_seq}) union (select * from karaoke_info where cp_name = #{CP_name} and seq_num = #{cp_seq}) union (select * from pcroom_info where cp_name = #{CP_name} and seq_num = #{cp_seq})
+		</select>
+		<select id="reviewAll" resultType="com.baobab.m.vo.ReviewVO">
+			select * from review order by post_date desc
+		</select>
+		
+	</mapper>

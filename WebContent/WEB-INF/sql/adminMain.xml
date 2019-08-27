@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	<mapper namespace="com.baobab.admin.dao.AdminMainMapper">
+		<select id="userAll" resultType="com.baobab.m.vo.UserAllVO">
+			select * from user_all
+		</select>
+		<select id="cpAll" resultType="com.baobab.m.vo.CPInfoVO">
+			select * from cp_info
+		</select>
+		<select id="menuAll" resultType="com.baobab.m.vo.MenuVO">
+			select * from menu
+		</select>
+		<select id="setMenuAll" resultType="com.baobab.m.vo.SetMenuVO">
+			select * from set_menu
+		</select>
+		<select id="visitantAll" resultType="com.baobab.m.vo.VisitantHistoryVO">
+			select * from visitant_history
+		</select>
+		<select id="paymentAll" resultType="com.baobab.m.vo.PaymentVO">
+			select * from payment
+		</select>
+		<select id="pushAll" resultType="com.baobab.m.vo.CpPushVO">
+			select * from cp_push
+		</select>
+		
+		<select id="loginHistory" parameterType="string" resultType="com.baobab.m.vo.AdminLoginHistoryVO">
+			select * from admin_login_history where email = #{email} order by login_date desc limit 10
+		</select>
+	</mapper>

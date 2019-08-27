@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	<mapper namespace="com.baobab.m.dao.StoreListMapper">
+		<!-- 거리순  -->
+		<select id="selectAllinfo" parameterType="com.baobab.m.vo.PageSearchVO" resultType="com.baobab.m.vo.LocalCPInfoVO">
+			select *,(6371*acos(cos(radians(#{latitude}))*cos(radians(latitude))*cos(radians(longitude)-radians(#{longitude}))+sin(radians(#{latitude}))*sin(radians(latitude)))) as distance from non_cp_info where (road_addr like #{location} or local_addr like #{location}) and (cp_name regexp #{kind} or kind regexp #{kind}) and (cp_name like #{searchWord} or kind like #{searchWord} or road_addr like #{searchWord} or local_addr like #{searchWord}) order by distance limit #{listCount} offset #{count}
+		</select>
+		<select id="selectLocalinfo" parameterType="com.baobab.m.vo.PageSearchVO" resultType="com.baobab.m.vo.LocalCPInfoVO">
+			select *,(6371*acos(cos(radians(#{latitude}))*cos(radians(latitude))*cos(radians(longitude)-radians(#{longitude}))+sin(radians(#{latitude}))*sin(radians(latitude)))) as distance from non_cp_info where (road_addr like #{location} or local_addr like #{location}) and (cp_name regexp #{kind} or kind regexp #{kind}) and (road_addr like #{searchWord} or local_addr like #{searchWord}) order by distance limit #{listCount} offset #{count}
+		</select>
+		<select id="selectMenuinfo" parameterType="com.baobab.m.vo.PageSearchVO" resultType="com.baobab.m.vo.LocalCPInfoVO">
+			select nci.*,(6371*acos(cos(radians(#{latitude}))*cos(radians(latitude))*cos(radians(longitude)-radians(#{longitude}))+sin(radians(#{latitude}))*sin(radians(latitude)))) as distance from non_cp_info as nci join non_cp_menu as ncm on nci.loc_seq = ncm.loc_seq where ncm.menu_name like #{searchWord} and (nci.road_addr like #{location} or local_addr like #{location}) order by distance limit #{listCount} offset #{count}
+		</select>
+		<select id="selectNameinfo" parameterType="com.baobab.m.vo.PageSearchVO" resultType="com.baobab.m.vo.LocalCPInfoVO">
+			select *,(6371*acos(cos(radians(#{latitude}))*cos(radians(latitude))*cos(radians(longitude)-radians(#{longitude}))+sin(radians(#{latitude}))*sin(radians(latitude)))) as distance from non_cp_info where (road_addr like #{location} or local_addr like #{location}) and (cp_name regexp #{kind} or kind regexp #{kind}) and cp_name like #{searchWord} order by distance limit #{listCount} offset #{count}
+		</select>
+		<select id="selectKindinfo" parameterType="com.baobab.m.vo.PageSearchVO" resultType="com.baobab.m.vo.LocalCPInfoVO">
+			select *,(6371*acos(cos(radians(#{latitude}))*cos(radians(latitude))*cos(radians(longitude)-radians(#{longitude}))+sin(radians(#{latitude}))*sin(radians(latitude)))) as distance from non_cp_info where (road_addr like #{location} or local_addr like #{location}) and (cp_name regexp #{kind} or kind regexp #{kind}) and (cp_name like #{searchWord} or kind like #{searchWord} or road_addr like #{searchWord} or local_addr like #{searchWord}) order by distance limit #{listCount} offset #{count}
+		</select>
+		
+		<!-- 주변검색  -->
+		<select id="selectSurroundings" parameterType="com.baobab.m.vo.PageSearchVO" resultType="com.baobab.m.vo.LocalCPInfoVO">
+			<![CDATA[select *,(6371*acos(cos(radians(#{latitude}))*cos(radians(latitude))*cos(radians(longitude)-radians(#{longitude}))+sin(radians(#{latitude}))*sin(radians(latitude)))) as distance from non_cp_info having distance <= 20 order by distance limit #{listCount} offset #{count}]]>
+		</select>
+		
+		<!-- 인기순 -->
+		<select id="selectPopAllinfo" parameterType="com.baobab.m.vo.PageSearchVO" resultType="com.baobab.m.vo.LocalCPInfoVO">
+			select *,(6371*acos(cos(radians(#{latitude}))*cos(radians(latitude))*cos(radians(longitude)-radians(#{longitude}))+sin(radians(#{latitude}))*sin(radians(latitude)))) as distance from non_cp_info where (road_addr like #{location} or local_addr like #{location}) and (cp_name regexp #{kind} or kind regexp #{kind}) and (cp_name like #{searchWord} or kind like #{searchWord} or road_addr like #{searchWord} or local_addr like #{searchWord}) order by (rev_num + hits) desc limit #{listCount} offset #{count}
+		</select>
+		<select id="selectPopLocalinfo" parameterType="com.baobab.m.vo.PageSearchVO" resultType="com.baobab.m.vo.LocalCPInfoVO">
+			select *,(6371*acos(cos(radians(#{latitude}))*cos(radians(latitude))*cos(radians(longitude)-radians(#{longitude}))+sin(radians(#{latitude}))*sin(radians(latitude)))) as distance from non_cp_info where (road_addr like #{location} or local_addr like #{location}) and (cp_name regexp #{kind} or kind regexp #{kind}) and (road_addr like #{searchWord} or local_addr like #{searchWord}) order by (rev_num + hits) desc limit #{listCount} offset #{count}
+		</select>
+		<select id="selectPopMenuinfo" parameterType="com.baobab.m.vo.PageSearchVO" resultType="com.baobab.m.vo.LocalCPInfoVO">
+			select nci.*,(6371*acos(cos(radians(#{latitude}))*cos(radians(latitude))*cos(radians(longitude)-radians(#{longitude}))+sin(radians(#{latitude}))*sin(radians(latitude)))) as distance from non_cp_info as nci join non_cp_menu as ncm on nci.loc_seq = ncm.loc_seq where ncm.menu_name like #{searchWord} and (nci.road_addr like #{location} or local_addr like #{location}) order by (rev_num + hits) desc limit #{listCount} offset #{count}
+		</select>
+		<select id="selectPopNameinfo" parameterType="com.baobab.m.vo.PageSearchVO" resultType="com.baobab.m.vo.LocalCPInfoVO">
+			select *,(6371*acos(cos(radians(#{latitude}))*cos(radians(latitude))*cos(radians(longitude)-radians(#{longitude}))+sin(radians(#{latitude}))*sin(radians(latitude)))) as distance from non_cp_info where (road_addr like #{location} or local_addr like #{location}) and (cp_name regexp #{kind} or kind regexp #{kind}) and cp_name like #{searchWord} order by (rev_num + hits) desc limit #{listCount} offset #{count}
+		</select>
+		<select id="selectPopKindinfo" parameterType="com.baobab.m.vo.PageSearchVO" resultType="com.baobab.m.vo.LocalCPInfoVO">
+			select *,(6371*acos(cos(radians(#{latitude}))*cos(radians(latitude))*cos(radians(longitude)-radians(#{longitude}))+sin(radians(#{latitude}))*sin(radians(latitude)))) as distance from non_cp_info where (road_addr like #{location} or local_addr like #{location}) and (cp_name regexp #{kind} or kind regexp #{kind}) and (cp_name like #{searchWord} or kind like #{searchWord} or road_addr like #{searchWord} or local_addr like #{searchWord}) order by (rev_num + hits) desc limit #{listCount} offset #{count}
+		</select>
+	</mapper>                              

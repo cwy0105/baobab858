@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	<mapper namespace="com.baobab.admin.dao.AlmightyMapper">
+		<select id="cpSearch" parameterType="string" resultType="com.baobab.m.vo.CPInfoVO">
+			select * from cp_info where CP_name like #{searchWord}	
+		</select>
+		<select id="almightyLogin" parameterType="com.baobab.m.vo.AlMightyVO" resultType="com.baobab.m.vo.AlMightyVO">
+			select alMightyID, almightyPW from updated_version where almightyID = #{almightyID} and almightyPW = #{almightyPW}
+		</select>
+	</mapper>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	<mapper namespace="com.baobab.m.dao.StatisticsMapper">
+		<select id="allStat" parameterType="com.baobab.m.vo.StatVO" resultType="com.baobab.m.vo.PaymentVO">
+			<![CDATA[select * from payment where cp_name = #{cpName} and pay_date >= #{startDate} and pay_date <= #{endDate} order by pay_date]]>
+		</select>
+		<select id="dayStat" parameterType="com.baobab.m.vo.StatVO" resultType="com.baobab.m.vo.PaymentVO">
+			select * from payment where cp_name = #{cpName} and pay_date like #{selDate} order by pay_date
+		</select>
+	</mapper>

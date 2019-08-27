@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	<mapper namespace="com.baobab.admin.dao.AdminReviewMapper">
+		<select id="reviewList" parameterType="com.baobab.m.vo.ReviewVO" resultType="com.baobab.m.vo.ReviewVO">
+			select * from review where div_code like #{div_code} and (CP_name like #{CP_name} or userPhoneNum like #{userPhoneNum}) order by post_date desc
+		</select>
+		<select id="reviewSelect" parameterType="int" resultType="com.baobab.m.vo.ReviewVO">
+			select * from review where review_num = #{seqNum}
+		</select>
+	</mapper>

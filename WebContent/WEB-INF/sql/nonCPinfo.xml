@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	<mapper namespace="com.baobab.m.dao.NonCPinfoMapper">
+		<select id="getMenus" parameterType="com.baobab.m.vo.LocalCPInfoVO" resultType="com.baobab.m.vo.NonCpMenuVO">
+			select * from non_cp_menu where loc_seq = #{loc_seq} and cp_name = #{cp_name}
+		</select>
+		<select id="getImg" parameterType="com.baobab.m.vo.LocalCPInfoVO" resultType="com.baobab.m.vo.NonCpImgVO">
+			select * from non_cp_img where loc_seq = #{loc_seq} and cp_name = #{cp_name}
+		</select>
+	</mapper>

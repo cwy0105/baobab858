@@ -1,0 +1,33 @@
+form {
+	width: 20%;
+	margin-top: 40px;
+	margin-left: 40%;
+}
+
+form input {
+	margin-top: 20px;
+}
+
+input[type="number"] {
+	text-align: center;
+	width: 100%;
+}
+
+input[type="button"] {
+	width: 80%;
+	border: 3px solid #FF8224;
+	border-radius: 20px;
+	background-color: white;
+	outline: none;
+}
+
+input[type="button"]:hover {
+	background-color: #FF8224;
+	color: white;
+	cursor: pointer;
+}
+
+p {
+	color: #A6A6A6;
+	font-size: 0.9em;
+}

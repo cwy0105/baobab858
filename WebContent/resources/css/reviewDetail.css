@@ -1,0 +1,50 @@
+#img_div {
+	width: 90%;
+	margin-top: 20px;
+	margin-left: 5%;
+}
+
+#img_div img {
+	width: 24%;
+}
+
+#user {
+	width: 90%;
+	height: 25px;
+	margin-top: 50px;
+	margin-left: 5%;
+}
+
+#user * {
+	float: left;
+}
+
+#user h2 {
+	font-size: 2em;
+	margin-right: 2%;
+}
+
+#score img {
+	width: 25px;
+	height: 25px;
+}
+
+#content {
+	width: 90%;
+	margin-top: 20px;
+	margin-left: 5%;
+}
+
+#content p {
+	font-size: 1.5em;
+}
+
+#rev_info {
+	width: 90%;
+	margin-top: 100px;
+	margin-left: 5%;
+}
+
+#rev_info p {
+	font-size: 1.3em;
+}

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	<mapper namespace="com.baobab.m.dao.PushMapper">
+		<select id="pushToAll" resultType="com.baobab.m.vo.UserLocationVO">
+			select ul.* from user_location as ul join user_all as ua on ul.user = ua.phon_num where (ul.push_token is not null and ul.push_token != '') and ua.push_agree = 'o' and ua.div_code != 'c-01-01'
+		</select>
+		<select id="pushToFan" parameterType="int" resultType="com.baobab.m.vo.UserLocationVO">
+			select ul.* from user_location as ul join poke as pk on ul.user = pk.user_phone join user_all as ua on ul.user = ua.phon_num where pk.cp_seq = 30 and ul.push_token is not null and ua.push_agree = 'o' and ua.div_code != 'c-01-01' group by ul.user order by rand() 
+		</select>
+		<select id="pushToNormal" parameterType="com.baobab.m.vo.CpPushVO" resultType="com.baobab.m.vo.UserLocationVO">
+			<![CDATA[select ul.* from user_location as ul join user_all as ua on ul.user = ua.phon_num where (6371*acos(cos(radians(convert(aes_decrypt(unhex(latitude), 'kang&jang&kim-baobab0858') using utf8) + 0.0))*cos(radians((select latitude from cp_info where seq_num = #{cpSeq})))*cos(radians(convert(aes_decrypt(unhex(longitude), 'kang&jang&kim-baobab0858') using utf8) + 0.0)-radians((select longitude from cp_info where seq_num = #{cpSeq})))+sin(radians(convert(aes_decrypt(unhex(latitude), 'kang&jang&kim-baobab0858') using utf8) + 0.0))*sin(radians((select latitude from cp_info where seq_num = #{cpSeq}))))) <= 1 and ul.push_token is not null and ul.push_token != '' and ua.push_agree = 'o' and ua.div_code != 'c-01-01' order by rand()]]>
+		</select>
+		
+		<insert id="savePush" parameterType="com.baobab.m.vo.CpPushVO">
+			insert into cp_push (cpName, radius, fanEa, normalEa, title, message, sendDate, cpSeq) values (#{cpName}, #{radius}, #{fanEa}, #{normalEa}, #{title}, #{message}, sysdate(), #{cpSeq})
+		</insert>
+		
+		<select id="sendToFan" parameterType="com.baobab.m.vo.CpPushVO" resultType="com.baobab.m.vo.UserLocationVO">
+			select ul.* from user_location as ul join poke as pk on ul.user = pk.user_phone where pk.cp_name = #{cpName} and ul.push_token is not null order by rand() limit #{fanEa}
+		</select>
+		<select id="sendToNormal" parameterType="com.baobab.m.vo.CpPushVO" resultType="com.baobab.m.vo.UserLocationVO">
+			<![CDATA[select * from user_location as ul join user_all as ua on ul.user = ua.phon_num where (6371*acos(cos(radians(convert(aes_decrypt(unhex(latitude), 'kang&jang&kim-baobab0858') using utf8) + 0.0))*cos(radians((select latitude from cp_info where seq_num = #{cpSeq})))*cos(radians(convert(aes_decrypt(unhex(longitude), 'kang&jang&kim-baobab0858') using utf8) + 0.0)-radians((select longitude from cp_info where seq_num = #{cpSeq})))+sin(radians(convert(aes_decrypt(unhex(latitude), 'kang&jang&kim-baobab0858') using utf8) + 0.0))*sin(radians((select latitude from cp_info where seq_num = #{cpSeq}))))) <= 1 and ul.push_token is not null and ul.push_token != '' and ua.push_agree = 'o' and ua.div_code != 'c-01-01' order by rand() limit #{normalEa}]]>
+		</select>
+		
+		<select id="findUser" parameterType="string" resultType="com.baobab.m.vo.UserLocationVO">
+			select * from user_location where push_token = #{pushToken} and user like '01%'
+		</select>
+		
+		<select id="findCp" parameterType="com.baobab.m.vo.CpPushVO" resultType="com.baobab.m.vo.CPInfoVO">
+			select * from cp_info where seq_num = (select cpSeq from cp_push where cpName = #{cpName} and title = #{title} and message = #{message} group by cpSeq)
+		</select>
+		
+		<insert id="pushPaymentMenu" parameterType="com.baobab.m.vo.PushPaymentVO">
+			insert into push_payment (menu_name, ea, all_ea, pay, name, email, buy_date, cp_name, acc_num, tu_num, bl_num, status, cp_seq) values (#{menu_name}, #{ea}, (select push_ea from cp_user where email = #{email}) + #{ea}, #{pay}, (select account_holder from cp_user where email = #{email}), #{email}, sysdate(), (select CP_name from cp_user where email = #{email}), (select account_number from cp_user where email = #{email}), #{tu_num}, (select CP_license_num from cp_user where email = #{email}), #{status}, #{cp_seq})
+		</insert>
+		
+		<select id="pushPaymentSelect" parameterType="string" resultType="com.baobab.m.vo.PushPaymentVO">
+			select * from push_payment where email = #{email} and status = '승인완료' order by buy_date desc
+		</select>
+		
+		<update id="pushTidUpdate" parameterType="com.baobab.m.vo.PushPaymentVO">
+			update push_payment set tid = #{tid}, status = '승인완료'  where tu_num = #{tu_num}
+		</update>
+		
+		<update id="pushPayCancel" parameterType="com.baobab.m.vo.PushPaymentVO">
+			update push_payment set status = '취소', cancel_date = sysdate() where tu_num = #{tu_num} and tid = #{tid}
+		</update>
+		
+		<update id="pushEaPlma" parameterType="com.baobab.m.vo.PushPaymentVO">
+			update cp_user set push_ea = push_ea + #{push_ea} where email = #{email}
+		</update>
+		
+	</mapper>

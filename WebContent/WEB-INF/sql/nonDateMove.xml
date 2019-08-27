@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	<mapper namespace="com.baobab.m.dao.NonDataMoveMapper">
+		<select id="selectSeq" parameterType="com.baobab.m.vo.CPInfoVO" resultType="com.baobab.m.vo.CPInfoVO">
+			select seq_num from cp_info where CP_name = #{CP_name} and longitude = #{longitude} and latitude = #{latitude}
+		</select>
+		<select id="nonSelect" parameterType="com.baobab.m.vo.CPInfoVO" resultType="com.baobab.m.vo.LocalCPInfoVO">
+			<![CDATA[select * from non_cp_info where cp_name = #{CP_name} and (6371*acos(cos(radians(#{latitude}))*cos(radians(latitude))*cos(radians(longitude)-radians(#{longitude}))+sin(radians(#{latitude}))*sin(radians(latitude)))) < 0.05]]>
+		</select>
+		<delete id="nonDelete" parameterType="com.baobab.m.vo.CPInfoVO">
+			<![CDATA[delete from non_cp_info where cp_name = #{CP_name} and (6371*acos(cos(radians(#{latitude}))*cos(radians(latitude))*cos(radians(longitude)-radians(#{longitude}))+sin(radians(#{latitude}))*sin(radians(latitude)))) < 0.05]]>
+		</delete>
+		<select id="selectImg" parameterType="int" resultType="com.baobab.m.vo.NonCpImgVO">
+			select * from non_cp_img where loc_seq = #{nonSeq}
+		</select>
+		<insert id="insertImg" parameterType="com.baobab.m.vo.CPmainImgVO">
+			insert into cp_img (cp_name, img_url, cp_seq) values (#{cp_name}, #{img_url}, #{cp_seq})
+		</insert>
+		<delete id="deleteImg" parameterType="int">
+			delete from non_cp_img where loc_seq = #{nonSeq}
+		</delete>
+		<select id="selectMenu" parameterType="int" resultType="com.baobab.m.vo.NonCpMenuVO">
+			select * from non_cp_menu where loc_seq = #{nonSeq}
+		</select>
+		<insert id="insertMenu" parameterType="com.baobab.m.vo.MenuVO">
+			insert into menu (menu_name, CP_name, menu_img, menu_price, menu_dis_price, menu_option, menu_div, cp_seq) values (#{menu_name}, #{cp_name}, #{menu_img}, #{menu_price}, #{menu_dis_price}, #{menu_option}, #{menu_div}, #{cp_seq})
+		</insert>
+		<delete id="deleteMenu" parameterType="int">
+			delete from non_cp_menu where loc_seq = #{nonSeq}
+		</delete>
+		<update id="updateInfo" parameterType="com.baobab.m.vo.LocalCPInfoVO">
+			update cp_info set CP_rev_num = #{rev_num}, CP_rev_grade = #{rev_grade}, CP_hits = #{hits} where seq_num = #{loc_seq}
+		</update>
+		<update id="updateCall" parameterType="com.baobab.m.vo.CallHistoryVO">
+			update call_history set cp_div = 'our', cp_name = #{cp_name} where cp_phone = #{cp_phone}
+		</update>
+		<update id="updatePoke" parameterType="com.baobab.m.vo.PokeVO">
+			update poke set score = #{score}, rev_num = #{rev_num}, div_code = 'our', cp_seq = #{cp_seq}, cp_name = #{cp_name} where div_code = 'non' and cp_seq = #{seq_num}
+		</update>
+		<update id="updateReview" parameterType="com.baobab.m.vo.ReviewVO">
+			update review set CP_name = #{CP_name}, div_code = 'our', cp_seq = #{cp_seq} where div_code = 'non' and cp_seq = #{seq_num}
+		</update>
+	</mapper>

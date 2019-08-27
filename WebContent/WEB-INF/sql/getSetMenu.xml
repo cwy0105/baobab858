@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	<mapper namespace="com.baobab.m.dao.GetSetMenuMapper">
+		<select id="getSetMenu" parameterType="int" resultType="com.baobab.m.vo.SetMenuVO">
+			select * from set_menu where cp_seq = #{cpSeq} order by seq_num
+		</select>
+		<select id="getSetMenuInfo" parameterType="int" resultType="com.baobab.m.vo.SetMenuInfoVO">
+			select * from set_menu_info where cp_seq = #{cpSeq} order by seq_num
+		</select>
+		<select id="getOneSetMenu" parameterType="com.baobab.m.vo.SetMenuVO" resultType="com.baobab.m.vo.SetMenuVO">
+			select * from set_menu where cp_name = #{cp_name} and menu_name = #{menu_name} and cp_seq = #{cpSeq}
+		</select>
+		<select id="menuConfirm" parameterType="com.baobab.m.vo.SetMenuVO" resultType="com.baobab.m.vo.SetMenuVO">
+			select * from set_menu where cp_name = #{cp_name} and cp_seq = #{cpSeq} and menu_name = #{menu_name}
+		</select>
+		<update id="setMenuUrlUpdate" parameterType="com.baobab.m.vo.SetMenuVO">
+			update set_menu set menu_img = #{menu_img} where cp_seq = #{cpSeq} and menu_name = #{menu_name}
+		</update>
+	</mapper>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	<mapper namespace="com.baobab.admin.dao.AdminCouponListMapper">
+		<select id="couponAll" parameterType="string" resultType="com.baobab.m.vo.CouponListVO">
+			select * from couponList order by ea
+		</select>
+		
+		<select id="couponSelect" parameterType="string" resultType="com.baobab.m.vo.CouponListVO">
+			select * from couponList where couponName = #{couponName}
+		</select>
+		
+		<update id="couponInfoUpdate" parameterType="com.baobab.m.vo.CouponListVO">
+			update couponList set couponName = #{couponName}, couponPrice = #{couponPrice}, couponDiscountPrice = #{couponDiscountPrice}, ea = #{ea}
+		</update>
+		
+<!-- 		<delete id="couponDelete" parameterType="com.baobab.m.vo.CouponListVO"> -->
+<!-- 			delete * from couponList where couponName = #{couponName} -->
+<!-- 		</delete> -->
+	</mapper>

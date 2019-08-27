@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	<mapper namespace="com.baobab.m.dao.VisitantMapper">
+		<!-- visitant -->
+		<insert id="firstVisit" parameterType="com.baobab.m.vo.VisitantVO">
+			insert into visitant (user_phone, visit_num, last_visit_date) values (#{user_phone}, 1, #{last_visit_date})
+		</insert>
+		<update id="accumulateVisit" parameterType="com.baobab.m.vo.VisitantVO">
+			update visitant set visit_num = visit_num + 1, last_visit_date = #{last_visit_date} where user_phone = #{user_phone}
+		</update>
+		<!-- history -->
+		<insert id="visitHistory" parameterType="com.baobab.m.vo.VisitantVO">
+			insert into visitant_history (user_phone, visit_type, visit_date) values (#{user_phone}, #{visit_type}, #{visit_date})
+		</insert>
+		<!-- print -->
+		<select id="allVisitant" resultType="int">
+			select count(*) from visitant_history
+		</select>
+	</mapper>

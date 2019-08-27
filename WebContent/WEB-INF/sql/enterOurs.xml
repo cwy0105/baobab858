@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	<mapper namespace="com.baobab.m.dao.EnterOursMapper">
+		<!-- 인기순 -->
+		<select id="getOursPopularity" parameterType="com.baobab.m.vo.PageSearchVO" resultType="com.baobab.m.vo.CPInfoVO">
+			<![CDATA[select *,(6371*acos(cos(radians(#{latitude}))*cos(radians(latitude))*cos(radians(longitude)-radians(#{longitude}))+sin(radians(#{latitude}))*sin(radians(latitude)))) as distance from cp_info where (CP_address like #{location} or CP_addr_details like #{location}) and (CP_name like #{searchWord} or CP_address like #{searchWord} or CP_addr_details like #{searchWord}) and (Business_start <= DATE_FORMAT(now(), '%H:%i') and Business_end > DATE_FORMAT(now(), '%H:%i')) and not close_day like CONCAT('%', SUBSTR( _UTF8'일월화수목금토', DAYOFWEEK(now()), 1), '%') and cp_div = #{div} order by (CP_rev_num + CP_hits + CP_calls) desc limit 20 offset #{listCount}]]> 
+		</select>
+		<select id="getOursPopLocation" parameterType="com.baobab.m.vo.PageSearchVO" resultType="com.baobab.m.vo.CPInfoVO">
+			<![CDATA[select *,(6371*acos(cos(radians(#{latitude}))*cos(radians(latitude))*cos(radians(longitude)-radians(#{longitude}))+sin(radians(#{latitude}))*sin(radians(latitude)))) as distance from cp_info where (CP_address like #{location} or CP_addr_details like #{location}) and (CP_address like #{searchWord} or CP_addr_details like #{searchWord}) and (Business_start <= DATE_FORMAT(now(), '%H:%i') and Business_end > DATE_FORMAT(now(), '%H:%i')) and not close_day like CONCAT('%', SUBSTR( _UTF8'일월화수목금토', DAYOFWEEK(now()), 1), '%') and cp_div = #{div} order by (CP_rev_num + CP_hits + CP_calls) desc limit 20 offset #{listCount}]]>
+		</select>
+		<select id="getOursPopCpName" parameterType="com.baobab.m.vo.PageSearchVO" resultType="com.baobab.m.vo.CPInfoVO">
+			<![CDATA[select *,(6371*acos(cos(radians(#{latitude}))*cos(radians(latitude))*cos(radians(longitude)-radians(#{longitude}))+sin(radians(#{latitude}))*sin(radians(latitude)))) as distance from cp_info where (CP_address like #{location} or CP_addr_details like #{location}) and (CP_name like #{searchWord}) and (Business_start <= DATE_FORMAT(now(), '%H:%i') and Business_end > DATE_FORMAT(now(), '%H:%i')) and not close_day like CONCAT('%', SUBSTR( _UTF8'일월화수목금토', DAYOFWEEK(now()), 1), '%') and cp_div = #{div} order by (CP_rev_num + CP_hits + CP_calls) desc limit 20 offset #{listCount}]]>
+		</select>
+		
+		<!-- 거리순 -->
+		<select id="getOursDistance" parameterType="com.baobab.m.vo.PageSearchVO" resultType="com.baobab.m.vo.CPInfoVO">
+			<![CDATA[select *,(6371*acos(cos(radians(#{latitude}))*cos(radians(latitude))*cos(radians(longitude)-radians(#{longitude}))+sin(radians(#{latitude}))*sin(radians(latitude)))) as distance from cp_info where (CP_address like #{location} or CP_addr_details like #{location}) and (CP_name like #{searchWord} or CP_address like #{searchWord} or CP_addr_details like #{searchWord}) and (Business_start <= DATE_FORMAT(now(), '%H:%i') and Business_end > DATE_FORMAT(now(), '%H:%i')) and not close_day like CONCAT('%', SUBSTR( _UTF8'일월화수목금토', DAYOFWEEK(now()), 1), '%') and cp_div = #{div} order by distance limit 20 offset #{listCount}]]>
+		</select>
+		<select id="getOursDisLocation" parameterType="com.baobab.m.vo.PageSearchVO" resultType="com.baobab.m.vo.CPInfoVO">
+			<![CDATA[select *,(6371*acos(cos(radians(#{latitude}))*cos(radians(latitude))*cos(radians(longitude)-radians(#{longitude}))+sin(radians(#{latitude}))*sin(radians(latitude)))) as distance from cp_info where (CP_address like #{location} or CP_addr_details like #{location}) and (CP_address like #{searchWord} or CP_addr_details like #{searchWord}) and (Business_start <= DATE_FORMAT(now(), '%H:%i') and Business_end > DATE_FORMAT(now(), '%H:%i')) and not close_day like CONCAT('%', SUBSTR( _UTF8'일월화수목금토', DAYOFWEEK(now()), 1), '%') and cp_div = #{div} order by distance limit 20 offset #{listCount}]]>
+		</select>
+		<select id="getOursDisCpName" parameterType="com.baobab.m.vo.PageSearchVO" resultType="com.baobab.m.vo.CPInfoVO">
+			<![CDATA[select *,(6371*acos(cos(radians(#{latitude}))*cos(radians(latitude))*cos(radians(longitude)-radians(#{longitude}))+sin(radians(#{latitude}))*sin(radians(latitude)))) as distance from cp_info where (CP_address like #{location} or CP_addr_details like #{location}) and (CP_name like #{searchWord}) and (Business_start <= DATE_FORMAT(now(), '%H:%i') and Business_end > DATE_FORMAT(now(), '%H:%i')) and not close_day like CONCAT('%', SUBSTR( _UTF8'일월화수목금토', DAYOFWEEK(now()), 1), '%') and cp_div = #{div} order by distance limit 20 offset #{listCount}]]>
+		</select>
+		
+		<!-- 주변검색 -->
+		<select id="getSurroundingsOur" parameterType="com.baobab.m.vo.PageSearchVO" resultType="com.baobab.m.vo.CPInfoVO">
+			<![CDATA[select *,(6371*acos(cos(radians(#{latitude}))*cos(radians(latitude))*cos(radians(longitude)-radians(#{longitude}))+sin(radians(#{latitude}))*sin(radians(latitude)))) as distance from cp_info having distance <= 20 and (Business_start <= DATE_FORMAT(now(), '%H:%i') and Business_end > DATE_FORMAT(now(), '%H:%i')) and not close_day like CONCAT('%', SUBSTR( _UTF8'일월화수목금토', DAYOFWEEK(now()), 1), '%') and cp_div = #{div} order by distance limit 20 offset #{listCount}]]>
+		</select>
+	</mapper>

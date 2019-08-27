@@ -1,0 +1,71 @@
+#main_section div {
+	width: 90%;
+	height: 70vh;
+	margin: 30px 5%;
+}
+
+#main_section div div {
+	width: 90%;
+	margin: 0px 5%;
+}
+
+#main_section div div table {
+	border-collapse: collapse;
+	width: 100%;
+}
+
+#main_section div div div {
+	width: 90%;
+	height: 5vh;
+}
+
+tr:hover {
+	background-color: #FF8224;
+	cursor: pointer;
+}
+
+tr:hover th {
+	background-color: white;
+	cursor: context-menu;
+}
+
+tr:hover td {
+	font-weight: bold;
+	color: white;
+}
+
+th {
+	font-size: 18px;
+}
+
+td, th {
+	border: 1px solid #dddddd;
+	padding: 8px;
+	text-align: left;
+}
+
+td a {
+	display: block;
+	color: black;
+}
+
+td p {
+	text-align: center;
+}
+
+input[type="text"] {
+	width: 250px;
+}
+
+input[type="button"] {
+	background-color: #FF8224;
+	width: 50px;
+	height: 30px;
+	color: white;
+	cursor: pointer;
+}
+
+input[type="button"]:hover {
+	background-color: white;
+	color: black;
+}

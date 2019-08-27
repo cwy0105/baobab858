@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	<mapper namespace="com.baobab.m.dao.CallHistoryMapper">
+		<insert id="getHistory" parameterType="com.baobab.m.vo.CallHistoryVO">
+			insert into call_history (user_phone, cp_phone, cp_name, cp_address, call_date, cp_div) values (#{user_phone}, #{cp_phone}, #{cp_name},#{cp_address}, sysdate(), #{cp_div})
+		</insert>
+		<select id="showHistory" parameterType="string" resultType="com.baobab.m.vo.CallHistoryVO">
+			select * from call_history where user_phone = #{userPhone} and call_date >= date_add(now(), interval - 12 month) order by call_date desc
+		</select>
+		<delete id="delHistory" parameterType="int">
+			delete from call_history where seq_num = #{seqNum}
+		</delete>
+		
+		<select id="enterSelect" parameterType="com.baobab.m.vo.CallHistoryVO" resultType="com.baobab.m.vo.NonPCroomVO">
+			(select * from billiard_info where cp_name = #{cp_name} and (local_addr = #{cp_address} or road_addr = #{cp_address})) union (select * from karaoke_info where cp_name = #{cp_name} and (local_addr = #{cp_address} or road_addr = #{cp_address})) union (select * from pcroom_info where cp_name = #{cp_name} and (local_addr = #{cp_address} or road_addr = #{cp_address}))
+		</select>
+	</mapper>

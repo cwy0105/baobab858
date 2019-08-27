@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.baobab.m.dao.CouCpMapper">
+	<select id="getCpCouList" parameterType="com.baobab.m.vo.CouponCpVO" resultType="com.baobab.m.vo.CouponCpVO">
+		select * from coupon_cp where buy_ea != dl_user_ea and cp_seq = #{cp_seq} order by buy_date
+	</select>
+
+	<insert id="couCpInfoInsert" parameterType="com.baobab.m.vo.CouponCpVO">
+		insert into coupon_cp (serial_num, cp_seq, cp_name, cou_title, cou_intro, cou_kind, buy_ea, use_ea, dl_user_ea, buy_date, period, status, orderNum) values (#{serial_num}, #{cp_seq}, #{cp_name}, #{cou_title}, #{cou_intro}, #{cou_kind}, #{buy_ea}, #{use_ea}, #{dl_user_ea}, sysdate(), (date_add((select buy_date from coupon_payment where orderNum = #{orderNum}), INTERVAL (select couponPeriodCP from updated_version) DAY)), #{status}, #{orderNum})
+	</insert>
+	
+	<update id="couponCpUse" parameterType="com.baobab.m.vo.CouponCpVO">
+		update coupon_cp set status = #{status} where serial_num = #{serial_num}
+	</update>
+	
+	<select id="couponCpPeriod" parameterType="com.baobab.m.vo.CouponCpVO" resultType="com.baobab.m.vo.CouponCpVO">
+		select period from coupon_cp where cp_seq = #{cp_seq}
+	</select>
+	
+	<select id="couPayDetail" parameterType="string" resultType="com.baobab.m.vo.CouponCpVO">
+		select * from coupon_cp where orderNum = #{orderNum}
+	</select>
+	
+	<select id="getCouponMenu" parameterType="int" resultType="com.baobab.m.vo.CouponCpVO">
+		<![CDATA[select * from coupon_cp where cp_seq = #{cp_seq} and status = 'on' and buy_ea > dl_user_ea and sysdate() < period]]> 
+	</select>
+	
+	<delete id="cpCouponExpiry">
+		<![CDATA[delete from coupon_cp where period < sysdate()]]>
+	</delete>
+</mapper>

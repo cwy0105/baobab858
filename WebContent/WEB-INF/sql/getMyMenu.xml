@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	<mapper namespace="com.baobab.m.dao.getMyMenuMapper">
+		<select id="getMenu" parameterType="int" resultType="com.baobab.m.vo.MenuVO">
+			select * from menu where cp_seq = #{cpSeq} order by seq_num
+		</select>
+		<select id="getThisMenu" parameterType="int" resultType="com.baobab.m.vo.MenuVO">
+			select * from menu where cp_seq = #{cpSeq} group by menu_name order by seq_num
+		</select>
+		<select id="menuImageUrl" parameterType="com.baobab.m.vo.MenuVO" resultType="string">
+			select menu_img from menu where CP_name = #{cp_name} and cp_seq = #{cp_seq} and menu_name = #{menu_name}
+		</select>
+		<update id="menuUrlUpdate" parameterType="com.baobab.m.vo.MenuVO">
+			update menu set menu_img = #{menu_img} where cp_seq = #{cp_seq} and menu_name = #{menu_name} 
+		</update>
+	</mapper>

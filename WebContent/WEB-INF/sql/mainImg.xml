@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	<mapper namespace="com.baobab.m.dao.MainImgUploadMapper">
+		<insert id="mainImgUpload" parameterType="com.baobab.m.vo.CPmainImgVO">
+			insert into cp_img (cp_name, img_url, cp_seq) values (#{cp_name}, #{img_url}, #{cp_seq})
+		</insert>
+		<select id="getMainImg" parameterType="int" resultType="com.baobab.m.vo.CPmainImgVO">
+			select * from cp_img where cp_seq = #{cpSeq} order by seq_num
+		</select>
+		<delete id="mainImgDel" parameterType="string">
+			delete from cp_img where img_url = #{url}
+		</delete>
+		<update id="urlUpdate" parameterType="com.baobab.m.vo.CPmainImgVO">
+			update cp_img set img_url = #{img_url} where img_url like #{cp_name}
+		</update>
+	</mapper>

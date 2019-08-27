@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	<mapper namespace="com.baobab.m.dao.StoreMenuMapper">
+		<select id="getMenus" parameterType="com.baobab.m.vo.MenuVO" resultType="com.baobab.m.vo.MenuVO">
+			select menu_name, cp_name , min(menu_price) as menu_price, min(menu_dis_price) as menu_dis_price, menu_img  from menu where cp_seq = #{cp_seq} and menu_div = #{menu_div} group by menu_name order by seq_num
+		</select> 
+		<update id="updateHits" parameterType="com.baobab.m.vo.CPInfoVO">
+			update cp_info set CP_hits = CP_hits + 1 where CP_name = #{CP_name} and seq_num = #{seq_num}
+		</update>
+		<update id="updateNonHits" parameterType="com.baobab.m.vo.LocalCPInfoVO">
+			update non_cp_info set hits = hits + 1 where cp_name = #{cp_name} and loc_seq = #{loc_seq} 
+		</update>
+		<select id="getOneMenu" parameterType="com.baobab.m.vo.MenuVO" resultType="com.baobab.m.vo.MenuVO">
+			select * from menu where cp_name = #{cp_name} and menu_name = #{menu_name} and cp_seq = #{cp_seq} order by menu_price
+		</select>
+		<update id="updateCurHits" parameterType="com.baobab.m.vo.CPInfoVO">
+			update cp_info set cur_hits = cur_hits + 1 where CP_name = #{CP_name} and seq_num = #{seq_num}
+		</update>
+		<update id="hitsInitialize">
+			update cp_info set cur_hits = 0 where cur_hits != 0
+		</update>
+		
+		<update id="updatePCHits" parameterType="com.baobab.m.vo.NonPCroomVO">
+			update pcroom_info set hits = hits + 1 where cp_name = #{cp_name} and seq_num = #{seq_num} 
+		</update>
+		<update id="updateBilliHits" parameterType="com.baobab.m.vo.NonBilliardVO">
+			update billiard_info set hits = hits + 1 where cp_name = #{cp_name} and seq_num = #{seq_num} 
+		</update>
+		<update id="updateKaraHits" parameterType="com.baobab.m.vo.NonKaraokeVO">
+			update karaoke_info set hits = hits + 1 where cp_name = #{cp_name} and seq_num = #{seq_num} 
+		</update>
+	</mapper>

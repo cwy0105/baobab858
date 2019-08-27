@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	<mapper namespace="com.baobab.admin.dao.AdminNoticeMapper">
+		<insert id="insertNotice" parameterType="com.baobab.m.vo.NoticeVO">
+			insert into notice (writer, title, content, read_div, noti_date) values (#{writer}, #{title}, #{content}, #{read_div}, sysdate())
+		</insert>
+		<select id="adminSelect" parameterType="com.baobab.m.vo.NoticeVO" resultType="com.baobab.m.vo.NoticeVO">
+			select * from notice where read_div like #{read_div} and (writer like #{writer} or title like #{title}) order by noti_date desc
+		</select>
+		<select id="userSelect" parameterType="string" resultType="com.baobab.m.vo.NoticeVO">
+			select title, content, noti_date from notice where read_div = #{readDiv} or read_div = 'all' order by noti_date desc
+		</select>
+		<select id="noticeDetail" parameterType="int" resultType="com.baobab.m.vo.NoticeVO">
+			select * from notice where seq_num = #{seqNum}
+		</select>
+		<select id="dubNotice" parameterType="string" resultType="com.baobab.m.vo.NoticeVO">
+			select * from notice where title = #{title}
+		</select>
+		<select id="noticePush" parameterType="string" resultType="com.baobab.m.vo.UserLocationVO">
+			select ul.* from user_location as ul join user_all as ua on ul.user = ua.phon_num where ua.div_code like #{divCode} and push_token is not null and push_token != '' group by push_token
+		</select>
+	</mapper>

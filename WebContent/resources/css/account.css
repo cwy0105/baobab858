@@ -1,0 +1,27 @@
+#account {
+	margin: 0 15%;
+}
+
+#account input {
+	text-align: center;
+	margin-top: 30px;
+}
+
+#account input[type="text"] {
+	width: 50%;
+	height: 30px;
+}
+
+input[type="button"] {
+	margin-top: 30px;
+	width: 20%;
+	border: 3px solid #FF8224;
+	background-color: white;
+	border-radius: 23px;
+}
+
+input[type="button"]:hover {
+	background-color: #FF8224;
+	color: white;
+	cursor: pointer;
+}

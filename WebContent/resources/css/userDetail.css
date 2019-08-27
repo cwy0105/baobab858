@@ -1,0 +1,327 @@
+#section {
+	height: 90vh;
+	margin: 20px 50px;
+}
+
+#section>div {
+	width: 100%;
+	display: block;
+	float: left;
+}
+
+#section_header {
+	height: 40px;
+}
+
+#section_body {
+	height: 830px;
+}
+
+#section div h1 {
+	width: 100%;
+	text-align: center;
+	font-size: 30px;
+}
+
+#section div h2 {
+	width: 100%;
+	text-align: center;
+	font-size: 25px;
+	margin-top: 10px;
+}
+
+#location table {
+	margin-top: 15px;
+	border-collapse: collapse;
+	border-radius: 30px;
+	width: 100%;
+}
+
+#location table tr td, #location table tr th {
+	border: 3px solid #dddddd;
+	font-size: 20px;
+}
+
+#location table tr th {
+	background-color: #dddddd;
+}
+
+#location table tr td {
+	background-color: white;
+}
+
+#payment {
+	margin-top: 10px;
+}
+
+#payment table {
+	border-collapse: collapse;
+	border-radius: 30px;
+	width: 100%;
+}
+
+#payment table tr th {
+	font-size: 23px;
+}
+
+#payment table tr td {
+	font-size: 20px;
+	text-align: left;
+}
+
+#payment table tr td, #payment table tr th {
+	border: 1px solid #dddddd;
+}
+
+#payment table tr:hover {
+	background-color: #FF8224;
+}
+
+#payment table tr:hover th {
+	background-color: white;
+}
+
+#payment table tr:hover td {
+	color: white;
+}
+
+#payment button {
+	margin-top: 5px;
+	width: 100%;
+	background-color: white;
+	border: 3px solid #FF8224;
+	outline: none;
+}
+
+#payment button strong {
+	font-size: 17px;
+}
+
+#payment button:hover {
+	background-color: #FF8224;
+}
+
+#payment button:hover strong {
+	color: white;
+}
+
+#history {
+	margin-top: 10px;
+}
+
+#history table {
+	border-collapse: collapse;
+	border-radius: 30px;
+	width: 100%;
+}
+
+#history table tr th {
+	font-size: 23px;
+}
+
+#history table tr td {
+	font-size: 20px;
+	text-align: left;
+}
+
+#history table tr td, #history table tr th {
+	border: 1px solid #dddddd;
+}
+
+#history table tr:hover {
+	background-color: #FF8224;
+}
+
+#history table tr:hover th {
+	background-color: white;
+}
+
+#history table tr:hover td {
+	color: white;
+}
+
+#history button {
+	margin-top: 5px;
+	width: 100%;
+	background-color: white;
+	border: 3px solid #FF8224;
+	outline: none;
+}
+
+#history button strong {
+	font-size: 17px;
+}
+
+#history button:hover {
+	background-color: #FF8224;
+}
+
+#history button:hover strong {
+	color: white;
+}
+
+#poke {
+	margin-top: 10px;
+}
+
+#poke table {
+	border-collapse: collapse;
+	border-radius: 30px;
+	width: 100%;
+}
+
+#poke table tr th {
+	font-size: 23px;
+}
+
+#poke table tr td {
+	font-size: 20px;
+	text-align: left;
+}
+
+#poke table tr td, #poke table tr th {
+	border: 1px solid #dddddd;
+}
+
+#poke table tr:hover {
+	background-color: #FF8224;
+}
+
+#poke table tr:hover th {
+	background-color: white;
+}
+
+#poke table tr:hover td {
+	color: white;
+}
+
+#poke button {
+	margin-top: 5px;
+	width: 100%;
+	background-color: white;
+	border: 3px solid #FF8224;
+	outline: none;
+}
+
+#poke button strong {
+	font-size: 17px;
+}
+
+#poke button:hover {
+	background-color: #FF8224;
+}
+
+#poke button:hover strong {
+	color: white;
+}
+
+#callHistory {
+	margin-top: 10px;
+}
+
+#callHistory table {
+	border-collapse: collapse;
+	border-radius: 30px;
+	width: 100%;
+}
+
+#callHistory table tr th {
+	font-size: 23px;
+}
+
+#callHistory table tr td {
+	font-size: 20px;
+	text-align: left;
+}
+
+#callHistory table tr td, #callHistory table tr th {
+	border: 1px solid #dddddd;
+}
+
+#callHistory table tr:hover {
+	background-color: #FF8224;
+}
+
+#callHistory table tr:hover th {
+	background-color: white;
+}
+
+#callHistory table tr:hover td {
+	color: white;
+}
+
+#callHistory button {
+	margin-top: 5px;
+	width: 100%;
+	background-color: white;
+	border: 3px solid #FF8224;
+	outline: none;
+}
+
+#callHistory button strong {
+	font-size: 17px;
+}
+
+#callHistory button:hover {
+	background-color: #FF8224;
+}
+
+#callHistory button:hover strong {
+	color: white;
+}
+
+#review {
+	margin-top: 10px;
+	margin-bottom: 30px;
+}
+
+#review table {
+	border-collapse: collapse;
+	border-radius: 30px;
+	width: 100%;
+}
+
+#review table tr th {
+	font-size: 23px;
+}
+
+#review table tr td {
+	font-size: 20px;
+	text-align: left;
+}
+
+#review table tr td, #review table tr th {
+	border: 1px solid #dddddd;
+}
+
+#review table tr:hover {
+	background-color: #FF8224;
+}
+
+#review table tr:hover th {
+	background-color: white;
+}
+
+#review table tr:hover td {
+	color: white;
+}
+
+#review button {
+	margin-top: 5px;
+	width: 100%;
+	background-color: white;
+	border: 3px solid #FF8224;
+	outline: none;
+}
+
+#review button strong {
+	font-size: 17px;
+}
+
+#review button:hover {
+	background-color: #FF8224;
+}
+
+#review button:hover strong {
+	color: white;
+}

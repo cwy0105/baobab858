@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	<mapper namespace="com.baobab.m.dao.LoginMapper">
+		<select id="loginConfirm" parameterType="com.baobab.m.vo.UserAllVO" resultType="com.baobab.m.vo.UserAllVO">
+			select * from user_all where email = #{email} and user_password = #{user_password}
+		</select>
+		<select id="getMyInfo" parameterType="int" resultType="com.baobab.m.vo.CPInfoVO">
+			select * from cp_info where seq_num = #{cpSeq}
+		</select>
+		<select id="getCpUserInfo" parameterType="string" resultType="string">
+			select CP_name from cp_user where email = #{email}
+		</select>
+		<insert id="getHistory" parameterType="com.baobab.m.vo.LoginHistoryVO">
+			insert into login_history (email, pw, div_code, state, date) values (#{email}, #{pw}, #{div_code}, #{state}, sysdate())
+		</insert>
+		<select id="getStoreInfo" parameterType="com.baobab.m.vo.CPUserVO" resultType="com.baobab.m.vo.CPInfoVO">
+			select * from cp_info where CP_name = #{cpName} and owner_email = #{email}
+		</select>
+	</mapper>

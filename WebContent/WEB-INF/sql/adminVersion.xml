@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.baobab.admin.dao.AdminVersionMapper">
+	<select id="getVersion" resultType="int">
+		select new_version from updated_version
+	</select>
+	<update id="upVersion" parameterType="int">
+		update updated_version set new_version = #{newVersion}
+	</update>
+	<update id="checkServer" parameterType="string">
+		update updated_version set inspection = #{inspection}
+	</update>
+	<select id="getCheckServer" resultType="string">
+		select inspection from updated_version
+	</select>
+</mapper> 

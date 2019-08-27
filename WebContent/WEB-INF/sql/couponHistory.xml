@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.baobab.m.dao.CouponHistoryMapper">
+	<insert id="getCouponHistory" parameterType="com.baobab.m.vo.CouponHistoryVO">
+		insert into coupon_history (serial_num, cp_seq, dl_user_email, status, current_date) values (#{serial_num}, #{cp_seq}, #{dl_user_email}, #{status}, sysdate())
+	</insert>
+	
+	<select id="showCouponHistory" parameterType="string" resultType="com.baobab.m.vo.CouponHistoryVO">
+		select * from coupon_history where dl_user_email = #{dl_user_email} order by date desc
+	</select>
+	
+	<delete id="delCouponHistory" parameterType="int">
+		delete from coupon_history where seq_num = #{cp_seq}
+	</delete>
+</mapper>
